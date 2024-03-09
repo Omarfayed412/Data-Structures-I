@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1709464250 source:d:\electronics\c programming\queue\main.c
+	<stdio.h>
+	<stdlib.h>
+

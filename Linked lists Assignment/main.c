@@ -110,15 +110,31 @@ void fillArray_LL_B(LinkedList *l, int *arr, size_t size) {
 }
 
 ///Task 1
+Node *search(LinkedList *l, int key) {
+    Node *temp = l->head;
+    while (temp != NULL) {
+        if (temp->data == key) {
+            printf("%d found at @%p\n", key, temp);
+            return temp;
+        }
+        else
+            temp = temp->next;
+    }
+    printf("%d is not found in this list\n", key);
+    return NULL;
+}
 
 int main()
 {
     LinkedList *l = init_LL();
     int arr[] = {5, 6, 7, 8};
     fillArray_LL_E(l, arr, sizeof(arr)/4);
+    printf("Original List: ");
     display_LL(l);
-    deleteBegin(l);
-    deleteBegin(l);
-    display_LL(l);
+    ///Task 1
+    int key =  8;
+    printf("\n1)Searching for %d ...\n", key);
+    search(l, key);
+
     return 0;
 }

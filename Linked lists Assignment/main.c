@@ -61,7 +61,7 @@ void insertEnd(LinkedList *l, int item) {
 }
 
 void deleteBegin(LinkedList *l) {
-    if (l->head == NULL) printf("ERROR: List is empty\n");
+    if (l->head == NULL) printf("\nERROR: List is empty\n");
     else {
         Node *temp;
         temp = l->head;
@@ -72,7 +72,7 @@ void deleteBegin(LinkedList *l) {
 }
 
 void deleteEnd(LinkedList *l) {
-    if (l->head == NULL) printf("ERROR: List is empty\n");
+    if (l->head == NULL) printf("\nERROR: List is empty\n");
     else {
         Node *temp1 = l->head;
         Node *temp2;
@@ -124,6 +124,33 @@ Node *search(LinkedList *l, int key) {
     return NULL;
 }
 
+///Task 2
+void insert(LinkedList *l, int index, int item) {
+    Node *temp1 = l->head;
+    int size = 0;
+    while (temp1 != NULL) {
+        size++;
+        temp1 = temp1->next;
+    }
+
+    if (index < 0 || index > size) printf("\nERROR: Index out of range\n");
+    else if (index == 0) insertBegin(l, item);
+    else if (index == size) insertEnd(l, item);
+    else {
+        Node *n = init_N(item);
+        Node *temp2;
+        temp1 = l->head;
+        int count = 0;
+        while (count < index - 1) {
+            temp1 = temp1->next;
+            count++;
+        }
+        temp2 = temp1->next;
+        temp1->next = n;
+        n->next = temp2;
+    }
+}
+
 int main()
 {
     LinkedList *l = init_LL();
@@ -132,9 +159,16 @@ int main()
     printf("Original List: ");
     display_LL(l);
     ///Task 1
-    int key =  8;
-    printf("\n1)Searching for %d ...\n", key);
+    int key =  9;
+    printf("\n1) ...Searching for %d ...\n", key);
     search(l, key);
 
+    ///Task 2
+    int index = 2;
+    printf("\n2)Adding %d at index %d : ", key, index);
+    insert(l, index, key);
+    display_LL(l);
+
+    destruct_LL(l);
     return 0;
 }

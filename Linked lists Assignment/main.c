@@ -153,28 +153,55 @@ void insert(LinkedList *l, int index, int item) {
 
 ///Task 3
 int identical(LinkedList *l1, LinkedList *l2) {
-
+    Node *temp1 = l1->head;
+    Node *temp2 = l2->head;
+    while (temp1 != NULL && temp2 != NULL) {
+        if (temp1->data != temp2->data) {
+            printf("The two lists aren't identical!\n");
+            return 0;
+        }
+        temp1 = temp1->next;
+        temp2 = temp2->next;
+    }
+    if (temp1 != NULL || temp2 != NULL) {
+        printf("The two lists aren't identical!\n");
+        return 0;
+    }
+    printf("The two lists are identical\n");
+    return 1;
 }
 
 
 int main()
 {
-    LinkedList *l = init_LL();
-    int arr[] = {5, 6, 7, 8};
-    fillArray_LL_E(l, arr, sizeof(arr)/4);
+    LinkedList *l1 = init_LL();
+    LinkedList *l2 = init_LL();
+    int arr1[] = {5, 6, 7, 8, 11, 12};
+    int arr2[] = {5, 6, 7, 8, 11};
+
+    fillArray_LL_E(l1, arr1, sizeof(arr1) / 4);
+    fillArray_LL_E(l2, arr2, sizeof(arr2) / 4);
     printf("Original List: ");
-    display_LL(l);
+    display_LL(l1);
     ///Task 1
     int key =  9;
     printf("\n1) ...Searching for %d ...\n", key);
-    search(l, key);
+    search(l1, key);
 
     ///Task 2
     int index = 2;
     printf("\n2)Adding %d at index %d : ", key, index);
-    insert(l, index, key);
-    display_LL(l);
+    insert(l1, index, key);
+    display_LL(l1);
 
-    destruct_LL(l);
+    ///Task 3
+    printf("\n3)List 1: ");
+    display_LL(l1);
+    printf("  List 2: ");
+    display_LL(l2);
+    identical(l1, l2);
+
+    destruct_LL(l1);
+    destruct_LL(l2);
     return 0;
 }

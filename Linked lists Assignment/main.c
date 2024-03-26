@@ -151,6 +151,12 @@ void insert(LinkedList *l, int index, int item) {
     }
 }
 
+///Task 3
+int identical(LinkedList *l1, LinkedList *l2) {
+
+}
+
+
 int main()
 {
     LinkedList *l = init_LL();

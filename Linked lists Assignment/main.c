@@ -171,13 +171,74 @@ int identical(LinkedList *l1, LinkedList *l2) {
     return 1;
 }
 
+///Task 4
+//Comparing each element from the two lists
+//If one of the elements is smaller insert it at
+//the end of the list ad increment the pointer to next node
+//The loop exits when one of the pointers = NULL
+//so one of the lists might be still not empty
+//check again for each list and insert all the elements in the non-empty list
+LinkedList *merge(LinkedList *l1, LinkedList *l2) {
+    LinkedList *newll = init_LL();
+    Node *temp1 = l1->head;
+    Node *temp2 = l2->head;
+    while (temp1 != NULL && temp2 != NULL) {
+        if (temp1->data < temp2->data) {
+            insertEnd(newll, temp1->data);
+            temp1 = temp1->next;
+        }
+        else if (temp1->data == temp2->data) {
+            insertEnd(newll, temp1->data);
+            insertEnd(newll, temp2->data);
+            temp1 = temp1->next;
+            temp2 = temp2->next;
+        }
+        else {
+            insertEnd(newll, temp2->data);
+            temp2 = temp2->next;
+        }
+    }
+    if (temp1 != NULL) {
+        while (temp1 != NULL) {
+            insertEnd(newll, temp1->data);
+            temp1 = temp1->next;
+        }
+    }
+    else if (temp2 != NULL) {
+        while (temp2 != NULL) {
+            insertEnd(newll, temp2->data);
+            temp2 = temp2->next;
+        }
+    }
+
+    return newll;
+}
+
+///Task 5
+LinkedList *intersection(LinkedList *l1, LinkedList *l2) {
+    LinkedList *intersect = init_LL();
+    Node *temp1 = l1->head;
+    Node *temp2 = l2->head;
+    while (temp1 != NULL) {
+        temp2 = l2->head;
+        while (temp2 != NULL) {
+            if (temp1->data == temp2->data) {
+                insertEnd(intersect, temp1->data);
+                break;
+            }
+            temp2 = temp2->next;
+        }
+        temp1 = temp1->next;
+    }
+    return intersect;
+}
 
 int main()
 {
     LinkedList *l1 = init_LL();
     LinkedList *l2 = init_LL();
-    int arr1[] = {5, 6, 7, 8, 11, 12};
-    int arr2[] = {5, 6, 7, 8, 11};
+    int arr1[] = {2, 4, 5, 8, 9, 10, 12};
+    int arr2[] = {1, 5, 7, 8, 11, 12 ,15};
 
     fillArray_LL_E(l1, arr1, sizeof(arr1) / 4);
     fillArray_LL_E(l2, arr2, sizeof(arr2) / 4);
@@ -189,7 +250,7 @@ int main()
     search(l1, key);
 
     ///Task 2
-    int index = 2;
+    int index = 4;
     printf("\n2)Adding %d at index %d : ", key, index);
     insert(l1, index, key);
     display_LL(l1);
@@ -200,6 +261,23 @@ int main()
     printf("  List 2: ");
     display_LL(l2);
     identical(l1, l2);
+
+    ///Task 4
+    printf("\n4)Merging list 1:");
+    display_LL(l1);
+    printf("With list 2:");
+    display_LL(l2);
+    LinkedList *merged = merge(l1, l2);
+    printf("New merged list: ");
+    display_LL(merged);
+
+    ///Task 5
+    printf("\n5)The intersection between \nList 1: ");
+    display_LL(l1);
+    printf("List 2: ");
+    display_LL(l2);
+    LinkedList *intersect = intersection(l1, l2);
+    display_LL(intersect);
 
     destruct_LL(l1);
     destruct_LL(l2);
